@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian Mk II — Halcyon Audio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C1A17;
+    --surface: #24211C;
+    --paper: #EFE9DC;
+    --paper-dim: #DCD4C2;
+    --brass: #B08A50;
+    --brass-dim: #6E5A3B;
+    --stone: #8C8375;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'IBM Plex Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  .page {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 72px 32px 96px;
+  }
+
+  /* ---------- Header ---------- */
+  .mark {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--brass-dim);
+    padding-bottom: 18px;
+    margin-bottom: 64px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--stone);
+  }
+  .mark span:last-child { color: var(--brass); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    align-items: end;
+    margin-bottom: 72px;
+  }
+
+  .hero-figure {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--brass-dim);
+    background:
+      radial-gradient(circle at 50% 50%, transparent 0 20%, rgba(176,138,80,0.06) 20% 21%, transparent 21% 34%, rgba(176,138,80,0.06) 34% 35%, transparent 35% 48%, rgba(176,138,80,0.06) 48% 49%, transparent 49%),
+      var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-figure::before {
+    content: "";
+    width: 34%;
+    height: 34%;
+    border-radius: 50%;
+    background: var(--brass);
+    box-shadow: 0 0 0 1px var(--ink), 0 0 0 2px var(--brass-dim);
+  }
+  .hero-figure::after {
+    content: "";
+    position: absolute;
+    top: 12%;
+    right: 12%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--paper-dim);
+  }
+
+  .hero-text .brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--brass);
+    margin-bottom: 14px;
+  }
+
+  .hero-text h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.02;
+    color: var(--paper);
+    margin-bottom: 10px;
+  }
+
+  .hero-text .tagline {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--stone);
+    max-width: 34ch;
+    line-height: 1.5;
+    margin-bottom: 30px;
+  }
+
+  .hero-text .price {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .hero-text .price .amount {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    color: var(--paper);
+  }
+  .hero-text .price .note {
+    font-size: 12px;
+    color: var(--stone);
+  }
+
+  /* ---------- Spec table ---------- */
+  .sheet-label {
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: var(--stone);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--brass-dim);
+    margin-bottom: 2px;
+  }
+
+  table.specs {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+  }
+
+  table.specs tbody tr {
+    border-bottom: 1px solid rgba(176, 138, 80, 0.22);
+    transition: background 0.15s ease;
+  }
+
+  table.specs tbody tr:hover {
+    background: rgba(176, 138, 80, 0.06);
+  }
+
+  table.specs th,
+  table.specs td {
+    text-align: left;
+    padding: 16px 8px;
+    vertical-align: top;
+  }
+
+  table.specs th {
+    width: 34%;
+    font-weight: 400;
+    color: var(--stone);
+    letter-spacing: 0.02em;
+  }
+
+  table.specs td {
+    color: var(--paper);
+  }
+
+  table.specs td.num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  table.specs .group-row th,
+  table.specs .group-row td {
+    padding-top: 34px;
+    border-top: 1px solid var(--brass-dim);
+  }
+
+  table.specs .group-row:first-child th,
+  table.specs .group-row:first-child td {
+    border-top: none;
+    padding-top: 16px;
+  }
+
+  .group-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--brass);
+  }
+
+  /* ---------- Footer note ---------- */
+  .footnote {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--brass-dim);
+    font-size: 12px;
+    color: var(--stone);
+    line-height: 1.7;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 720px) {
+    .page { padding: 48px 20px 64px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-figure { max-width: 220px; margin: 0 auto; }
+    table.specs th { width: 44%; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="mark">
+      <span>Halcyon Audio — Product Sheet</span>
+      <span>No. HA‑0142</span>
+    </div>
+
+    <section class="hero">
+      <div class="hero-text">
+        <div class="brand">Halcyon Audio</div>
+        <h1>Meridian Mk&nbsp;II</h1>
+        <p class="tagline">A belt-drive turntable built for listening, not fiddling — three speeds, one dial, nothing to configure.</p>
+        <div class="price">
+          <span class="amount">$1,240</span>
+          <span class="note">incl. headshell &amp; cartridge</span>
+        </div>
+      </div>
+      <div class="hero-figure" role="img" aria-label="Illustration of the Meridian Mk II turntable platter"></div>
+    </section>
+
+    <div class="sheet-label">Specification</div>
+    <table class="specs">
+      <tbody>
+        <tr class="group-row">
+          <th scope="row"><span class="group-title">Overview</span></th>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Brand</th>
+          <td>Halcyon Audio</td>
+        </tr>
+        <tr>
+          <th scope="row">Model</th>
+          <td>Meridian Mk II</td>
+        </tr>
+        <tr>
+          <th scope="row">Category</th>
+          <td>Belt-drive turntable</td>
+        </tr>
+        <tr>
+          <th scope="row">Price</th>
+          <td class="num">$1,240.00</td>
+        </tr>
+        <tr>
+          <th scope="row">Availability</th>
+          <td>In stock, ships in 3–5 days</td>
+        </tr>
+
+        <tr class="group-row">
+          <th scope="row"><span class="group-title">Build</span></th>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Plinth material</th>
+          <td>Solid walnut, oiled finish</td>
+        </tr>
+        <tr>
+          <th scope="row">Platter</th>
+          <td>Aluminium, damped underside</td>
+        </tr>
+        <tr>
+          <th scope="row">Dimensions</th>
+          <td class="num">430 × 360 × 118 mm</td>
+        </tr>
+        <tr>
+          <th scope="row">Weight</th>
+          <td class="num">6.4 kg</td>
+        </tr>
+
+        <tr class="group-row">
+          <th scope="row"><span class="group-title">Performance</span></th>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Speeds</th>
+          <td>33⅓ / 45 RPM, electronic switch</td>
+        </tr>
+        <tr>
+          <th scope="row">Wow &amp; flutter</th>
+          <td class="num">±0.10% (WRMS)</td>
+        </tr>
+        <tr>
+          <th scope="row">Signal-to-noise</th>
+          <td class="num">70 dB</td>
+        </tr>
+        <tr>
+          <th scope="row">Cartridge</th>
+          <td>Moving magnet, pre-fitted</td>
+        </tr>
+        <tr>
+          <th scope="row">Output</th>
+          <td>RCA, line &amp; phono selectable</td>
+        </tr>
+
+        <tr class="group-row">
+          <th scope="row"><span class="group-title">Ownership</span></th>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Warranty</th>
+          <td>5 years, parts &amp; labour</td>
+        </tr>
+        <tr>
+          <th scope="row">In the box</th>
+          <td>Turntable, dust cover, counterweight, 45 adaptor</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="footnote">Specifications are measured under standard test conditions and may vary slightly by unit. Finish shown is walnut; a matte black plinth is available on request.</p>
+
+  </div>
+</body>
+</html>
